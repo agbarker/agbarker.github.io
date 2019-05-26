@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+        <style>
+                @import url('https://fonts.googleapis.com/css?family=Raleway');
+                
+                body {
+                  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                }
+                </style>
+        
+    <svg></svg>
+</body>
+
+<script>
+    // JSON data
+    var nodeData = {
+        "name": "TOPICS", "children": [
+            {"name": "Cow", color: '#ba832e',
+            "children": [
+                {"name": "Hard", color: '#c7ae58',
+                    "children": [
+                        {"name": "Come", "size": 1, color: '#edd79d'},
+                        {"name": "Asiago", "size": 1, color: 'd0bc6f'},
+                        {"name": "Parmasean", "size": 1, color: 'ecd59a'},
+                        {"name": "Parmigiano-Reggiano", "size": 1, color: 'ceaf76'},
+                        {"name": "Cotija", "size": 1, color: 'd5cecb'},
+                        {"name": "Grana Padano", "size": 1, color: 'd1c290'},
+                        {"name": "Emmental", "size": 1, color: 'cfbea3'},
+                        {"name": "Gruyere", "size": 1, color: 'dfc88a'},
+                        {"name": "Swiss", "size": 1, color: 'e9ca5b'},
+                        {"name": "Mahon", "size": 1, color: 'e2b83d'},
+                    ]},
+                {"name": "Semi-Hard", color: '#bf9958', 
+                    "children": [
+                        {"name": "Queso Oaxaca", "size": 1, color: 'd3d9e8'},
+                        {"name": "Tilsit", "size": 1, color: 'dad8bb'},
+                        {"name": "Cheddar", "size": 1, color: 'c88238'},
+                        {"name": "Stilton", "size": 1, color: 'ccc5c9'},
+                        {"name": "Gouda", "size": 1, color: 'cebd8a'},
+                        {"name": "Provolone", "size": 1, color: 'd4d2d3'},
+                        {"name": "Monterey Jack", "size": 1, color: 'd3ceb4'},
+                        {"name": "Maytag Blue", "size": 1, color: 'cbcab6'},
+                        {"name": "Stichelton", "size": 1, color: 'b9b4b0'}
+                    ]},
+                {"name": "Semi-Soft", color: '#ccc8c1', 
+                    "children": [
+                        {"name": "Jarlsberg", "size": 1, color: 'cecaac'},
+                        {"name": "Stinking Bishop", "size": 1, color: 'e5e4e4'},
+                        {"name": "Taleggio", "size": 1, color: 'd2c8c5'},
+                        {"name": "Paneer", "size": 1, color: 'cddbfa'},
+                        {"name": "Colby", "size": 1, color: 'd9a64b'},
+                        {"name": "Pepper Jack", "size": 1, color: 'c7a56e'},
+                        {"name": "Havarti", "size": 1, color: 'cfd0d3'},
+                        {"name": "Bel Paese", "size": 1, color: 'cccfce'},
+                        {"name": "Tomme de Savoie", "size": 1, color: 'd4d1b7'},
+                        {"name": "Vecherin Mont d'Or", "size": 1, color: 'cdd2d8'},
+                        {"name": "Danbo", "size": 1, color: 'cac8ba'},
+                        {"name": "Fontina Val d'Aosta", "size": 1, color: 'c99b6f'},
+                        {"name": "Pont-l'Eveque", "size": 1, color: 'dbcf8a'},
+                        {"name": "Butterkase", "size": 1, color: 'ddb641'}
+                    ]},
+                {"name": "Soft", color: '#d0b77f', 
+                    "children": [
+                        {"name": "Limburger", "size": 1, color: 'bfa276'},
+                        {"name": "Briet", "size": 1, color: 'd4d2d4'},
+                        {"name": "Munster", "size": 1, color: 'cbcbcc'},
+                        {"name": "Gorgonzola", "size": 1, color: 'cdc4af'},
+                        {"name": "Mascarpone", "size": 1, color: 'd1d9f4'},
+                        {"name": "Cream Cheese", "size": 1, color: 'c9d2e9'},
+                        {"name": "Ricotta", "size": 1, color: 'cdd5ee'},
+                        {"name": "Camembert", "size": 1, color: 'd5ca95'},
+                        {"name": "Langers", "size": 1, color: 'cac8ad'},
+                        {"name": "Queso Banco", "size": 1, color: 'cacfe9'}
+                    ]}
+                ]}, 
+        {"name": "Sheep", color: '#c29e46',
+            "children": [
+                {"name": "Hard", color: '#c5af51', 
+                    "children": [
+                        {"name": "Manchego", "size": 1, color: 'c5c1bd'},
+                        {"name": "Roncal", "size": 1, color: 'd1d1b3'},
+                        {"name": "Pecorino Romano", "size": 1, color: 'b29b5a'},
+                        {"name": "Pecorino Sardo", "size": 1, color: 'cac0a2'}
+                    ]}, 
+                {"name": "Semi-Hard", color: 'c4bf8f', 
+                    "children": [
+                        {"name": "Roquefort", "size": 1, color: 'd2d6e5'},
+                        {"name": "Feta", "size": 1, color: 'd5d3d9'},
+                        {"name": "Ossau-Iraty", "size": 1, color: 'dfd6b2'},
+                        {"name": "Yorkshire Blue", "size": 1, color: 'ccc5c4'}
+                    ]}, 
+                {"name": "Soft", color: '#d0c89b', 
+                    "children": [
+                        {"name": "Fleur de Maquis", "size": 1, color: 'd8dcd9'}
+                    ]}]
+        }, {"name": "Goat", color: '#c5b65c',
+            "children": [
+                {"name": "Hard", color: '#ccc38c', 
+                    "children": [
+                        {"name": "Garrotxa", "size": 1, color: 'dcdee6'},
+                        {"name": "Idaho Goatster", "size": 1, color: 'e8e5ee'}
+                    ]}, 
+                {"name": "Semi-Hard", color: '#bca268', 
+                    "children": [
+                        {"name": "Majorero", "size": 1, color: 'ebdaa5'}
+                    ]},
+                {"name": "Semi-Soft", color: '#bfb480', 
+                    "children": [
+                        {"name": "Charolais", "size": 1, color: 'e1e4e1'},
+                        {"name": "Humboldt Fig", "size": 1, color: 'd4d0d1'},
+                        {"name": "Clochette", "size": 1, color: 'e7e5cb'}
+                    ]},
+                {"name": "Soft", color: 'cbc2b0', 
+                    "children": [
+                        {"name": "Crottin de Chavignol", "size": 1, color: 'd6ca99'},
+                        {"name": "Sainte-Maure de Touraine", "size": 1, color: 'ded8c7'},
+                        {"name": "Chevre Bucheron", "size": 1, color: 'b89469'},
+                        {"name": "Golden Gross", "size": 1, color: 'dedcde'},
+                        {"name": "Pantysgawn", "size": 1, color: 'dfd6cb'}
+                    ]}
+                ]
+        },
+        {"name": "Buffalo", color: '#bca13f',
+            "children": [
+                {"name": "Semi-Soft", color: '#b7b897', 
+                    "children": [
+                        {"name": "Buffalo Blue", "size": 1, color: 'd5deeb'}
+                    ]},
+                {"name": "Soft", color: 'c1bc90', 
+                    "children": [
+                        {"name": "Mozzarella di Bufala Campana", "size": 1, color: 'e4e8ee'}
+                    ]}
+                ]
+        }]
+    }
+    
+
+
+    // Variables
+    var width = 2000;
+    var height = 2000;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+
+    // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
+    var g = d3.select('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    // Create our sunburst data structure and size it.
+    var partition = d3.partition()
+        .size([2 * Math.PI, radius]);
+
+    // Get the data from our JSON file
+
+
+        // Find the root node of our data, and begin sizing process.
+        var root = d3.hierarchy(nodeData)
+            .sum(function (d) { return d.size});
+
+        // Calculate the sizes of each arc that we'll draw later.
+        partition(root);
+        var arc = d3.arc()
+            .startAngle(function (d) { return d.x0 })
+            .endAngle(function (d) { return d.x1 })
+            .innerRadius(function (d) { return d.y0 })
+            .outerRadius(function (d) { return d.y1 });
+
+
+        // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
+        // variable calculations. Last, color the lines and the slices.
+        g.selectAll('g')
+            .data(root.descendants())
+            .enter().append('g').attr("class", "node").append('path')
+            .attr("display", function (d) { return d.depth ? null : "none"; })
+            .attr("d", arc)
+            .style('stroke', '#fff')
+            .style("fill", function (d) { return d.data.color; });
+
+
+        // Populate the <text> elements with our data-driven titles.
+        g.selectAll(".node")
+            .append("text")
+            .attr("transform", function(d) {
+                return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+            .attr("dx", "-90") // radius margin
+            .attr("dy", ".5em") // rotation align
+            .text(function(d) { return d.parent ? d.data.name : "" });
+
+
+
+
+    /**
+     * Calculate the correct distance to rotate each label based on its location in the sunburst.
+     * @param {Node} d
+     * @return {Number}
+     */
+    function computeTextRotation(d) {
+        var angle = (d.x0 + d.x1) / Math.PI * 90;
+
+        // Avoid upside-down labels
+        
+        return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+    }
+
+
+
+</script>
