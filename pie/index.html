@@ -69,7 +69,7 @@
             .append("text")
             .attr("transform", function(d) {
                 return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
-            .attr("dx", "-100") // radius margin
+            .attr("dx", "-105") // radius margin
             .attr("dy", ".5em") // rotation align
             .text(function(d) { return d.parent ? d.data.name : "" });
 
