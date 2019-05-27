@@ -112,7 +112,7 @@
             ]},
         {"name": "Soft", "color": "c1bc90", 
             "children": [
-                {"name": "Mozzarella di Bufala Campana", "size": 1, "color": "e4e8ee"}
+                {"name": "Mozzarella di Bufala", "size": 1, "color": "e4e8ee"}
             ]}
         ]
 }]
