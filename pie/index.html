@@ -11,6 +11,8 @@
                 body {
                   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
                 }
+
+                text { pointer-events: none; }
                 </style>
         
     <svg></svg>
@@ -61,7 +63,8 @@
             .attr("display", function (d) { return d.depth ? null : "none"; })
             .attr("d", arc)
             .style('stroke', '#fff')
-            .style("fill", function (d) { return d.data.color; });
+            .style("fill", function (d) { return d.data.color; })
+            .on("mouseover", handleMouseOver);
 
 
         // Populate the <text> elements with our data-driven titles.
@@ -87,6 +90,16 @@
         // Avoid upside-down labels
         
         return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+    }
+
+    function handleMouseOver(d, i) {  // Add interactivity
+
+        // Use D3 to select element, change color and size
+        d3.select(this).attr({
+        fill: "orange",
+        r: radius * 2
+        });
+
     }
 
 
