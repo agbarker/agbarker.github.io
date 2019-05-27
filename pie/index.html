@@ -63,8 +63,7 @@
             .attr("display", function (d) { return d.depth ? null : "none"; })
             .attr("d", arc)
             .style('stroke', '#fff')
-            .style("fill", function (d) { return d.data.color; })
-            .on("mouseover", handleMouseOver);
+            .style("fill", function (d) { return d.data.color; });
 
 
         // Populate the <text> elements with our data-driven titles.
