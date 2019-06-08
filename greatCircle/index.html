@@ -18,7 +18,7 @@
     // Map and projection
     var projection = d3.geoAzimuthalEqualArea()
         .scale(85)
-        
+        .translate([width/2, height/2])
     
     // Create data: coordinates of start and end
     var link = {type: "LineString", coordinates: [[100, 60], [-60, -30]]} // Change these data to see ho the great circle reacts
