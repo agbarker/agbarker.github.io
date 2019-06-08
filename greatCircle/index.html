@@ -7,27 +7,45 @@
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
 <!-- Create an element where the map will take place -->
-<svg id="my_dataviz" width="440" height="300"></svg>
+<svg id="my_dataviz" width="1000" height="1000"></svg>
 <script>
 
-    // The svg
-    var svg = d3.select("svg"),
+    var aCoor = [280, 60];
+    var bCoor = [-60, -30];
+
+    const delta = (aCoor, bCoor) =>   {
+        const [lat1, lon1] = aCoor;
+        const [lat2, lon2] = bCoor;
+
+        const dLon = lon2 - lon1;
+
+        const y = Math.sin(dLon) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+
+        const result = 360 - ((Math.atan2(y, x) + 360) % 360);
+
+        return result;
+
+    }
+
+
+    const svg = d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
-    
-    // Map and projection
-    var projection = d3.geoAzimuthalEqualArea()
-        .scale(100)
+
+    const projection = d3.geoAzimuthalEqualArea()
+        .scale(85)
         .translate([width/2, height/2])
+        .rotate([delta, 0])
     
-    // Create data: coordinates of start and end
-    var link = {type: "LineString", coordinates: [[100, 60], [-60, -30]]} // Change these data to see ho the great circle reacts
+    const link = {
+        type: "LineString",
+        coordinates: [aCoor, bCoor]
+        };
     
-    // A path generator
-    var path = d3.geoPath()
+    const path = d3.geoPath()
         .projection(projection)
     
-    // Load world shape
     d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
     
         // Draw the map
@@ -46,7 +64,7 @@
         svg.append("path")
           .attr("d", path(link))
           .style("fill", "none")
-          .style("stroke", "orange")
+          .style("stroke", "blue")
           .style("stroke-width", 2)
     
     })
