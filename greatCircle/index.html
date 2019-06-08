@@ -16,7 +16,7 @@
         height = +svg.attr("height");
     
     // Map and projection
-    var projection = d3.geoMercator()
+    var projection = d3.d3.geoAzimuthalEqualArea()
         .scale(85)
         .translate([width/2, height/2*1.3])
     
